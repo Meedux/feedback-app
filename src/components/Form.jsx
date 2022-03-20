@@ -1,15 +1,28 @@
-import React from 'react' 
+import {React, useContext} from 'react' 
 import Card from './shared/card'
-import { useState } from 'react'
+import FeedbackData from './context/FeedbackData'
+import { useState, useEffect } from 'react'
 import Button from './shared/Button'
 import RatingSelect from './RatingSelect'
 
+
+
 const Form = () => {
+    const { addFeedback, editFeedback, editForm } = useContext(FeedbackData)
     const [text, setText] = useState('');
-    const [rating, setRating] = useState(10);
+    const [rating, setRating] = useState();
     const [btnDisabled, setBtn] = useState(true);
     const [message, setMessage] = useState('');
 
+    useEffect(()=>{
+        if(editFeedback.edit === true){
+            setBtn(false)
+            setText(editFeedback.item.text)
+            setRating(editFeedback.item.rating)
+        }
+    }, [editFeedback])
+
+    
     function textChange(e){
         if(text === ''){
             setBtn(true)
@@ -24,12 +37,26 @@ const Form = () => {
         setText(e.target.value);
     }
 
+    function submitFeedback(e){
+        e.preventDefault()
+
+        if(editFeedback.edit === true){
+            editForm(editFeedback.item.id, {text, rating})
+        }else{
+            addFeedback({text, rating})
+        }
+
+        setText('')
+        setBtn(true)
+        setRating(null)
+    }
+
 
   return (
     <Card>
-        <form>
+        <form onSubmit={submitFeedback}>
             <h2>How Would you rate our service with us?</h2>
-                <RatingSelect />
+                <RatingSelect select={(selected)=>setRating(selected)}/>
             <div className="input-group">
 
 
