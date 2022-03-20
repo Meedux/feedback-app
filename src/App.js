@@ -1,12 +1,11 @@
 import Header from "./components/Header";
-import FeedbackItem from "./components/FeedbackItem";
+// import FeedbackItem from "./components/FeedbackItem";
 import FeedbackList from "./components/FeedbackList";
-import { useState } from "react";
+// import { useState } from "react";
 import './index.css'
 // import FeedbackData from "./data/FeedbackData";
 import FeedbackStats from "./components/FeedbackStats";
 import Form from "./components/Form";
-import { v4 as uuidv4 } from 'uuid'
 import About from "./pages/About";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AboutIcon from "./components/AboutIcon";
